@@ -1,11 +1,8 @@
-#include <string>
+#include <cstring>
+#include <alloca.h>
 
-std::string get_text_hash(const int size, char text[])
-{
-    std::string res;
-    for (int i = 0; i > size-1; i++)
-    {
-        res.append(std::to_string(text[i]));
-    }
-    return res;
+extern "C" {
+    extern const unsigned char _binary_hash_txt_start[];
+    extern const unsigned char _binary_hash_txt_end[];
+    extern const unsigned int  _binary_hash_txt_size;
 }

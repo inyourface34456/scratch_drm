@@ -2,14 +2,8 @@
 #include <string>
 #include <fstream>
 #include <unistd.h>
-#include "drm.cpp"
 #include <iomanip>
-
-extern "C" {
-    extern char _binary_hash_txt_start[];
-    extern const unsigned char _binary_hash_txt_end[];
-    extern const unsigned int  _binary_hash_txt_size;
-}
+#include "drm.cpp"
 
 bool check(const std::string &input) {
     return input == std::string("not");
@@ -21,6 +15,7 @@ bool integerty_check() {
 }
 
 int main(const int argc, char *argv[]) {
+    // init();
     integerty_check();
     std::string input;
     if (argc >= 2) {
@@ -32,5 +27,6 @@ int main(const int argc, char *argv[]) {
     } else {
         std::cout << "nope" << std::endl;
     }
-    std::cout << "Hash: "  << get_text_hash(_binary_hash_txt_size, _binary_hash_txt_start) << std::endl;
+    std::cout << input << std::endl;
+    std::cout << _binary_hash_txt_start << std::endl;
 }
