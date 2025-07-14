@@ -3,6 +3,13 @@
 #include <fstream>
 #include <unistd.h>
 #include "drm.cpp"
+#include <iomanip>
+
+extern "C" {
+    extern char _binary_hash_txt_start[];
+    extern const unsigned char _binary_hash_txt_end[];
+    extern const unsigned int  _binary_hash_txt_size;
+}
 
 bool check(const std::string &input) {
     return input == std::string("not");
@@ -25,5 +32,5 @@ int main(const int argc, char *argv[]) {
     } else {
         std::cout << "nope" << std::endl;
     }
-    std::cout << input << std::endl;
+    std::cout << "Hash: "  << get_text_hash(_binary_hash_txt_size, _binary_hash_txt_start) << std::endl;
 }

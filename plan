@@ -1,7 +1,7 @@
 to hash check code at runtime:
-1. add the hash of the text section to the end of the bin
-2. add the necessary linker scripts to expose the hash data and the text to the program
-3. read in the hash data and the txt section
-4. hash the text section
-5. compare the loaded hash data and the hash for the text section
-6. finally, return the comparison result
+[x] 1. add the hash of the text section to the end of the bin
+[ ] 2. add the necessary linker scripts to expose the hash data and the text to the program
+[ ] 3. read in the hash data and the txt section
+[ ] 4. hash the text section
+[ ] 5. compare the loaded hash data and the hash for the text section
+[ ] 6. finally, return the comparison result
