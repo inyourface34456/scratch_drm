@@ -25,7 +25,8 @@ add_custom_target(generate_hash_obj ALL
 # Define your main executable without hash.o for now
 add_executable(scratch_drm main.cpp drm.cpp
         var_defs.h
-        drm.h)
+        drm.h
+        drm.cpp)
 
 # Ensure the object is built before the executable
 add_dependencies(scratch_drm generate_hash_obj)

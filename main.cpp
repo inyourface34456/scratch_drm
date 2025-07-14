@@ -9,7 +9,11 @@ bool check(const std::string &input) {
 }
 
 int main(const int argc, char *argv[]) {
-    integerty_check();
+    if (!integerty_check()) {
+        std::cerr << "integerty_check failed" << std::endl;
+        exit(1);
+    }
+
     std::string input;
     if (argc >= 2) {
         input = argv[1];

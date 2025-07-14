@@ -18,21 +18,27 @@ std::string sha256(const char input[], const unsigned long len) {
 
 bool integerty_check() {
     ELFIO::elfio reader;
+    std::string og_hash(reinterpret_cast<const char*>(_binary_hash_txt_start));
 
     if (!reader.load("/proc/" + std::to_string(getpid()) + "/exe")) {
-        std::cerr << "Segmentation fault (core dumped)\nJK, cant read own elf" << std::endl;
-        exit(1);
+        std::cerr << "Segmentation fault (core dumped)" << std::endl;
+        return false;
     }
 
     const ELFIO::Elf_Half sec_num = reader.sections.size();
     for ( int i = 0; i < sec_num; ++i ) {
         const ELFIO::section* psec = reader.sections[i];
         if (psec->get_name() == ".text") {
-            const char* p = psec->get_data();
-            auto hash = sha256(p, psec->get_size());
-            std::cout << hash << std::endl;
-            std::cout << _binary_hash_txt_start << std::endl;
+            const auto hash = sha256(psec->get_data(), psec->get_size());
+            // std::cout << hash << std::endl;
+            // std::cout << og_hash << std::endl;
+            // std::cout << (hash == og_hash) << std::endl;
+            if (hash == og_hash) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
-    return true;
+    return false;
 }
