@@ -8,6 +8,8 @@ TEXT_BIN="text.txt"
 HASH_TXT="hash.txt"
 HASH_OBJ="hash.o"
 
+rm -f "$HASH_OBJ"
+
 # Extract .text section
 objcopy -O binary -j .text "$INPUT_BIN" "$TEXT_BIN"
 
