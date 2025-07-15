@@ -1,0 +1,1 @@
+This is a learning project for me, ment to learn c++, and reverse enginering.  I will read any issues, but will most likly not respond to them and they will be closed.  I will add a place here to post your sucsessful patches.
