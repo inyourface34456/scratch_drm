@@ -33,11 +33,8 @@ bool integerty_check() {
         const ELFIO::section* psec = reader.sections[i];
         if (psec->get_name() == ".text") {
             const auto hash = sha256(psec->get_data(), psec->get_size());
-            // std::cout << hash << std::endl;
-            // std::cout << og_hash << std::endl;
-            // std::cout << (hash == og_hash) << std::endl;
             auto now = std::chrono::high_resolution_clock::now();
-            if (now-start > std::chrono::microseconds(1100))
+            if (now-start > std::chrono::microseconds(1200))
             {
                 std::cerr << "2: failed "  << now-start << std::endl;
                 exit(1);
@@ -75,8 +72,15 @@ bool tracer_id() {
         }
     }
 
+    auto start = std::chrono::high_resolution_clock::now();
     std::string tracer_id = file_content.substr(c7, c8-c7);
     int tracer_pid = stoi(tracer_id.substr(tracer_id.find(':'), 3).erase(0, 2));
+    auto now = std::chrono::high_resolution_clock::now();
+    if (now-start > std::chrono::microseconds(5))
+    {
+        std::cerr << "5: failed "  << now-start << std::endl;
+        exit(1);
+    }
     if (tracer_pid == 0 || tracer_pid == getpid())
     {
         return false;

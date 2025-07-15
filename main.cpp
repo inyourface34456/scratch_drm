@@ -3,7 +3,8 @@
 #include <string>
 #include <sys/ptrace.h>
 #include "drm.h"
-#include <linux/prctl.h>  /* Definition of PR_* constants */
+#include <linux/prctl.h>
+#include <csignal>
 #include <sys/prctl.h>
 
 bool check(const std::string &input) {
@@ -12,6 +13,7 @@ bool check(const std::string &input) {
 
 int main(const int argc, char *argv[]) {
     prctl(PR_SET_DUMPABLE, false);
+    signal(SIGTRAP, exit);
     auto start = std::chrono::high_resolution_clock::now();
     if (integerty_check() || tracer_id() || ptrace(PTRACE_TRACEME, 0, 0, 0) == -1)
     {
@@ -19,7 +21,7 @@ int main(const int argc, char *argv[]) {
         exit(1);
     }
     auto now = std::chrono::high_resolution_clock::now();
-    if (now-start > std::chrono::microseconds(3500))
+    if (now-start > std::chrono::microseconds(3550))
     {
         std::cerr << "1: failed"  << now-start << std::endl;
         exit(1);
