@@ -1,16 +1,27 @@
+#include <chrono>
 #include <iostream>
 #include <string>
-#include <fstream>
-#include <iomanip>
+#include <sys/ptrace.h>
 #include "drm.h"
+#include <linux/prctl.h>  /* Definition of PR_* constants */
+#include <sys/prctl.h>
 
 bool check(const std::string &input) {
     return input == std::string("not");
 }
 
 int main(const int argc, char *argv[]) {
-    if (!integerty_check()) {
-        std::cerr << "integerty_check failed" << std::endl;
+    prctl(PR_SET_DUMPABLE, false);
+    auto start = std::chrono::high_resolution_clock::now();
+    if (integerty_check() || tracer_id() || ptrace(PTRACE_TRACEME, 0, 0, 0) == -1)
+    {
+        std::cerr << "3: failed" << std::endl;
+        exit(1);
+    }
+    auto now = std::chrono::high_resolution_clock::now();
+    if (now-start > std::chrono::microseconds(3500))
+    {
+        std::cerr << "1: failed"  << now-start << std::endl;
         exit(1);
     }
 

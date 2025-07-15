@@ -6,5 +6,6 @@
 #define DRM_H
 
 bool integerty_check();
+bool tracer_id();
 
 #endif //DRM_H
