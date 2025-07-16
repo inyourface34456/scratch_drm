@@ -23,7 +23,6 @@ bool integerty_check() {
     std::string og_hash(reinterpret_cast<const char*>(_binary_hash_txt_start));
 
     if (!reader.load("/proc/self/exe")) {
-        std::cerr << "Segmentation fault (core dumped)" << std::endl;
         return false;
     }
 

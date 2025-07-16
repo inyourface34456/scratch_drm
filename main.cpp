@@ -3,6 +3,7 @@
 #include <string>
 #include <sys/ptrace.h>
 #include "drm.h"
+#include "bougus_math.h"
 #include <linux/prctl.h>
 #include <csignal>
 #include <sys/prctl.h>
@@ -15,15 +16,41 @@ int main(const int argc, char *argv[]) {
     prctl(PR_SET_DUMPABLE, false);
     signal(SIGTRAP, exit);
     auto start = std::chrono::high_resolution_clock::now();
-    if (integerty_check() || tracer_id() || ptrace(PTRACE_TRACEME, 0, 0, 0) == -1)
-    {
-        std::cerr << "3: failed" << std::endl;
-        exit(1);
+    unsigned long long state = 0;
+    while (true) {
+        switch (state) {
+            case 0:
+                if (integerty_check()) {
+                    goto exit;
+                }
+                state += math(991, 10, 862, 517, 73, 460, 43, 707, 868);
+                continue;
+            case 1:
+                if (tracer_id()) {
+                    goto exit;
+                }
+                state += math(983, 268, 90, 316, 810, 268, 582, 441, 839);
+                continue;
+            case 2:
+                if (ptrace(PTRACE_TRACEME, 0, 0, 0) == -1) {
+                    goto exit;
+                }
+                state += math(962, 915, 225, 793, 966, 234, 238, 503, 370);
+                continue;
+            case 3:
+                goto good;
+            default:
+                break;
+        }
     }
+    exit:
+    std::cerr << "3: failed" << std::endl;
+    exit(1);
+    good:
     auto now = std::chrono::high_resolution_clock::now();
     if (now-start > std::chrono::microseconds(3550))
     {
-        std::cerr << "1: failed"  << now-start << std::endl;
+        std::cerr << "1: failed "  << now-start << std::endl;
         exit(1);
     }
 

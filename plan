@@ -1,7 +1,2 @@
-to hash check code at runtime:
-[X] 1. add the hash of the text section to the end of the bin
-[-] 2. add the necessary linker scripts to expose the hash data and the text to the program
-[X] 3. get the .text section data
-[X] 4. hash the text section
-[X] 5. compare the loaded hash data and the hash for the text section
-[X] 6. finally, return the comparison result
+[ ] 1.) obfuscate the code
+[ ] 2.) encrypt and decrypt the code at runtime

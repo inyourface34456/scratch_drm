@@ -26,7 +26,9 @@ add_custom_target(generate_hash_obj ALL
 add_executable(scratch_drm main.cpp drm.cpp
         var_defs.h
         drm.h
-        drm.cpp)
+        drm.cpp
+        bougus_math.cpp
+        bougus_math.h)
 
 # Ensure the object is built before the executable
 add_dependencies(scratch_drm generate_hash_obj)
