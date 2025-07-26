@@ -12,3 +12,6 @@
 [ ]     f.) Open the .so with dlopen
 [ ]         I .) Chat gpt says something like `dlopen("/proc/self/fd/XYZ", RTLD_NOW)`
 [ ]     g.) Run the main function in the .so
+
+Resourses:
+https://github.com/a-darwish/memfd-examples
