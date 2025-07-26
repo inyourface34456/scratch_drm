@@ -33,12 +33,11 @@ bool integerty_check() {
         if (psec->get_name() == ".text") {
             const auto hash = sha256(psec->get_data(), psec->get_size());
             auto now = std::chrono::high_resolution_clock::now();
-            if (now-start > std::chrono::microseconds(1200))
-            {
-                std::cerr << "2: failed "  << now-start << std::endl;
-                exit(1);
-            }
             if (hash == og_hash) {
+                if (now-start > std::chrono::microseconds(1200)) {
+                    std::cerr << "2: failed "  << now-start << std::endl;
+                    exit(1);
+                }
                 return false;
             }
             return true;

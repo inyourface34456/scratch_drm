@@ -27,7 +27,7 @@ add_executable(scratch_drm main.cpp drm.cpp
         var_defs.h
         drm.h
         drm.cpp
-        bougus_math.cpp
+#        bougus_math.cpp
         bougus_math.h)
 
 # Ensure the object is built before the executable
