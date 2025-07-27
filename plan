@@ -7,8 +7,10 @@
 [ ]     c.) Embed .so file in the binary
 [ ]     d.) Get and decrypt the .so file
 [ ]     e.) Make a virtual filesystem with memfd
-[ ]         I .) Write the file to it
-[ ]         II.) make sure to protect it using `O_CLOEXEC`
+[ ]         I  .) Write the file to it
+[ ]         II .) make sure to protect it using `O_CLOEXEC`
+[ ]         III.) use ftruncate to get the correct size
+[ ]         IV .) call dlopen with /proc/self/fd/[fd]
 [ ]     f.) Open the .so with dlopen
 [ ]         I .) Chat gpt says something like `dlopen("/proc/self/fd/XYZ", RTLD_NOW)`
 [ ]     g.) Run the main function in the .so
