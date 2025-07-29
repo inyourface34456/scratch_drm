@@ -1,6 +1,6 @@
 [X] 1.) obfuscate the code
-[ ] 2.) encrypt and decrypt the code at runtime
-[ ]     a.) Compile protected code into .so
+[-] 2.) encrypt and decrypt the code at runtime
+[X]     a.) Compile protected code into .so
 [ ]     b.) Encrypt .so with openSSL
 [ ]         I .) Make sure to save the key in the binary as well
 [ ]         II.) I should probly also sign it as well for extra verification

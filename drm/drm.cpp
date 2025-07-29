@@ -20,10 +20,12 @@ std::string sha256(const char input[], const unsigned long len) {
 
 bool integerty_check() {
     ELFIO::elfio reader;
-    std::string og_hash(reinterpret_cast<const char*>(_binary_hash_txt_start));
+    const std::string og_hash(reinterpret_cast<const char*>(_binary_hash_txt_start),
+                              reinterpret_cast<const char*>(_binary_hash_txt_end));
+    // const std::string og_hash = "abcdef";
 
     if (!reader.load("/proc/self/exe")) {
-        return false;
+        return true;
     }
 
     auto start = std::chrono::high_resolution_clock::now();

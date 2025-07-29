@@ -17,4 +17,4 @@ objcopy -O binary -j .text "$INPUT_BIN" "$TEXT_BIN"
 sha256sum "$TEXT_BIN" | cut -d' ' -f1 | tr -d '\n'> "$HASH_TXT"
 
 # Convert hash.txt into linkable object
-objcopy --input binary --output elf64-x86-64 --binary-architecture i386:x86-64 "$HASH_TXT" "$HASH_OBJ"
+objcopy --rename-section .data=.rodata,alloc,load,readonly,data,contents --input binary --output elf64-x86-64 --binary-architecture i386:x86-64 "$HASH_TXT" "$HASH_OBJ"

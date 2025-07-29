@@ -2,11 +2,12 @@
 #include <iostream>
 #include <string>
 #include <sys/ptrace.h>
-#include "drm.h"
+// #include "drm.h"
 #include "bougus_math.h"
 #include <linux/prctl.h>
 #include <csignal>
 #include <sys/prctl.h>
+#include <dlfcn.h>
 
 bool check(const std::string &input) {
     return input == std::string("not");
@@ -17,13 +18,22 @@ int main(const int argc, char *argv[]) {
     signal(SIGTRAP, exit);
     auto start = std::chrono::high_resolution_clock::now();
     unsigned long long state = 0;
+    dlerror();
+    void* handle = dlopen("/media/inyourface34445/New Volume/Projects/scratch_drm/build/libDRM.so", RTLD_NOW);
+    if (!handle) {
+        std::cerr << "Error loading dll: " << dlerror() << std::endl;
+    }
+
+    bool (*tracer_id)() = (bool (*)())dlsym(handle, "_Z9tracer_idv");
+    bool (*integerty_check)() = (bool (*)())dlsym(handle, "_Z15integerty_checkv");
+
     while (true) {
         switch (state) {
             case 0:
                 if (integerty_check()) {
                     goto exit;
                 }
-                state += math(991, 10, 862, 517, 73, 460, 43, 707, 868);
+                state += math(981, 12, 862, 517, 73, 460, 43, 707, 868);
                 continue;
             case 1:
                 if (tracer_id()) {
