@@ -24,7 +24,7 @@ bool integerty_check() {
     ELFIO::elfio reader;
     const std::string og_hash(reinterpret_cast<const char*>(_binary_hash_txt_start),
                               reinterpret_cast<const char*>(_binary_hash_txt_end));
-    // const std::string og_hash = "abcdef";
+    //const std::string og_hash = "abcdef";
 
     if (!reader.load("/proc/self/exe")) {
         return true;
@@ -78,13 +78,12 @@ bool tracer_id() {
     std::string tracer_id = file_content.substr(c7, c8-c7);
     int tracer_pid = stoi(tracer_id.substr(tracer_id.find(':'), 3).erase(0, 2));
     auto now = std::chrono::high_resolution_clock::now();
-    if (now-start > std::chrono::microseconds(5))
-    {
-        std::cerr << "5: failed "  << now-start << std::endl;
-        exit(1);
-    }
-    if (tracer_pid == 0 || tracer_pid == getpid())
-    {
+
+    if (tracer_pid == 0 || tracer_pid == getpid()) {
+        if (now-start > std::chrono::microseconds(10)) {
+            std::cerr << "5: failed "  << now-start << std::endl;
+            exit(1);
+        }
         return false;
     }
     return true;
@@ -96,18 +95,21 @@ bool verify() {
         switch (state) {
         case 0:
             if (integerty_check()) {
+                std::cerr << "stage 1"  << std::endl;
                 return false;
             }
             state += math(991, 12, 862, 517, 73, 460, 43, 707, 868);
             continue;
         case 1:
             if (tracer_id()) {
+                std::cerr << "stage 2"  << std::endl;
                 return false;
             }
             state += math(983, 268, 90, 316, 810, 268, 582, 441, 839);
             continue;
         case 2:
             if (ptrace(PTRACE_TRACEME, 0, 0, 0) == -1) {
+                std::cerr << "stage 3"  << std::endl;
                 return false;
             }
             state += math(962, 915, 225, 793, 966, 234, 238, 503, 370);

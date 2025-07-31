@@ -1,10 +1,10 @@
 [X] 1.) obfuscate the code
 [-] 2.) encrypt and decrypt the code at runtime
 [X]     a.) Compile protected code into .so
-[ ]     b.) Encrypt .so with openSSL
+[X]     b.) Embed .so file in the binary
+[ ]     c.) Encrypt .so with openSSL
 [ ]         I .) Make sure to save the key in the binary as well
 [ ]         II.) I should probly also sign it as well for extra verification
-[ ]     c.) Embed .so file in the binary
 [ ]     d.) Get and decrypt the .so file
 [ ]     e.) Make a virtual filesystem with memfd
 [ ]         I  .) Write the file to it
