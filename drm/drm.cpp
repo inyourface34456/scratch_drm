@@ -4,6 +4,8 @@
 #include <chrono>
 #include <fstream>
 #include "var_defs.h"
+#include "../bougus_math.h"
+#include <sys/ptrace.h>
 
 std::string sha256(const char input[], const unsigned long len) {
     unsigned char hash[SHA256_DIGEST_LENGTH];
@@ -86,4 +88,34 @@ bool tracer_id() {
         return false;
     }
     return true;
+}
+
+bool verify() {
+    unsigned long long state = 0;
+    while (true) {
+        switch (state) {
+        case 0:
+            if (integerty_check()) {
+                return false;
+            }
+            state += math(991, 12, 862, 517, 73, 460, 43, 707, 868);
+            continue;
+        case 1:
+            if (tracer_id()) {
+                return false;
+            }
+            state += math(983, 268, 90, 316, 810, 268, 582, 441, 839);
+            continue;
+        case 2:
+            if (ptrace(PTRACE_TRACEME, 0, 0, 0) == -1) {
+                return false;
+            }
+            state += math(962, 915, 225, 793, 966, 234, 238, 503, 370);
+            continue;
+        case 3:
+            return true;
+        default:
+            break;
+        }
+    }
 }
